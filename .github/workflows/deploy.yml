@@ -34,7 +34,7 @@ jobs:
           source: "target/*.jar"
           target: "/var/www/springboot-app"
 
-      - name: 🔁 Restart App on Server
+      - name: 🔁 Deploy & Restart
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
@@ -42,4 +42,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/springboot-app
+            rm -f target/*.jar
+            git pull origin main
+            chmod +x mvnw
+            ./mvnw clean package -DskipTests
             systemctl restart springboot

@@ -8,6 +8,6 @@ public class HealthController {
 
     @GetMapping("/health")
     public String health() {
-        return "Application is running 🚀 and automatically scaling";
+        return "Application is running 🚀 and with github actions";
     }
 }
